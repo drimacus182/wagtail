@@ -132,6 +132,17 @@ class StructBlockComparison(BlockComparison):
             '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmldiffs))
 
 
+class RawHTMLBlockComparison(BlockComparison):
+    def htmlvalue(self, val):
+        return escape(super().htmlvalue(val))
+
+    def htmldiff(self):
+        return diff_text(
+            force_str(self.val_a),
+            force_str(self.val_b)
+        ).to_html()
+
+
 class StreamBlockComparison(BlockComparison):
     def get_block_comparisons(self):
         a_blocks = list(self.val_a) or []

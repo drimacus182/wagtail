@@ -10,6 +10,7 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.compare import RawHTMLBlockComparison
 from wagtail.core.rich_text import RichText
 from wagtail.core.utils import resolve_model_string
 
@@ -604,6 +605,9 @@ class RawHTMLBlock(FieldBlock):
 
     def value_from_form(self, value):
         return mark_safe(value)
+
+    def get_comparison_class(self):
+        return RawHTMLBlockComparison
 
     class Meta:
         icon = 'code'
